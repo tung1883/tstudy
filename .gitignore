@@ -1,0 +1,13 @@
+.claude/
+.vscode/
+
+# build artifacts
+*.exe
+*.o
+*.obj
+*.out
+*.a
+*.lib
+*.dll
+*.pdb
+*.ilk
