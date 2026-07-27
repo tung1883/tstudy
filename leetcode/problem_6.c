@@ -9,7 +9,7 @@
 
 /*
  * Key notes:
- * Instead of thinking like where each index will be in,
+ * Instead of thinking like where each index will be in (a.k.a. the naive_convert()),
  * Think which index each row has (in order)
  * So instead of a 2D matrix to put each index in, we can allocate characters in one go
  */
@@ -31,32 +31,33 @@
 
 /*
  * Input: s = "PAYPALISHIRING", numRows = 4
- Output: "PINALSIGYAHRPI"
- Explanation:
- P     I    N
- A   L S  I G
- Y A   H R
- P     I
- * 0 -> (0, 0) -> 0
- * 1 -> (1, 0) -> 7
- * 2 -> (2, 0) -> 
- * 3 -> (3, 0) -> 
- * 4 -> (2, 1) 
- * 5 -> (1, 2)
- * 6 -> (0, 3)
- * 7 -> (1, 3)
- * 8 -> (2, 3)
- * 9 -> (3, 3)
+ * Output: "PINALSIGYAHRPI"
+ * Explanation:
+ *   P     I    N
+ *   A   L S  I G
+ *   Y A   H R
+ *   P     I
+ *
+ * 0  -> (0, 0) -> 0
+ * 1  -> (1, 0) -> 7
+ * 2  -> (2, 0)
+ * 3  -> (3, 0)
+ * 4  -> (2, 1)
+ * 5  -> (1, 2)
+ * 6  -> (0, 3)
+ * 7  -> (1, 3)
+ * 8  -> (2, 3)
+ * 9  -> (3, 3)
  * 10 -> (2, 4)
  * 11 -> (1, 5)
  * 12 -> (0, 6)
- * 
- * a patter requires 2 * n - 2
- * 1st pattern (p = 0): x  % (2 * n - 2) -> y = [0, 1, 2, 3, 4, 5]
+ *
+ * a pattern requires 2 * n - 2
+ * 1st pattern (p = 0): x % (2 * n - 2) -> y = [0, 1, 2, 3, 4, 5]
  * 0 <= y <= n - 1     ==> (y, p)
  * n <= y <= 2 * n - 3 ==> (2*n-2-y, p+y-n+1)
  * m = number of pattern = (x-y)/(2*n-2)
- * p = (n - 1) * m 
+ * p = (n - 1) * m
  * let's say arr[a][b] -> a=(n-1)*(1+(x-y)/(2*n - 2)), b=n-1
  */
 
@@ -69,7 +70,7 @@ char* naive_convert(char* s, int numRows) {
         strcpy(res, s);
         return res;
     }
-    
+
     int width = (numRows - 1) * (1 + (s_size - s_size % (2 * numRows - 2)) / (2 * numRows - 2));
     char** arr = malloc(sizeof(char*) * numRows);
     for (int i = 0; i < numRows; i++) {
@@ -112,7 +113,7 @@ char* convert(char* s, int numRows) {
     int cycle = 2 * numRows - 2;
     int idx = 0;
     for (int r = 0; r < numRows; r++) {
-        for (int i = r; i < s_size; i+= cycle) {
+        for (int i = r; i < s_size; i += cycle) {
             res[idx++] = s[i];
             // i = k*cycle + r
             // j = k*cycle + cycle - r = i + cycle - 2 * r
