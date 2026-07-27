@@ -9,11 +9,8 @@
 
 /* 
  * Key notes:
- * - To be fast, we only need to check half of x with its reverse back
- * - For example: 1221 -> we will find the reverse back (half-back is 21, that make the reverse 21),
- * then compare with the top 12
- * - 2 cases: x even -> x == reverse, x odd -> x == reverse / 10 (if we let x <= reverse)
- * - Edge cases: 10, 20, 100, etc. -> this breaks our logic
+ * Another solution that I think handle edge cases better (even though it is slower)
+ * The idea is comparing the first and last digits and cut off them, moving to the next iteration
  */
 
 /*
@@ -29,16 +26,22 @@
  */
 bool isPalindrome(int x) {
     if (x < 0) return 0;
-    if (x != 0 && x % 10 == 0) return 0;
-    if (x < 9) return 1;
+    int div = 1;
 
-    int reverse = 0;
-    while (x > reverse) {
-        reverse = reverse * 10 + x % 10;
-        x /= 10;
+    while (x / div >= 10) {
+        div  *= 10;
     }
 
-    return x == reverse || x == reverse / 10;
+    while (x != 0) {
+        int firstDigit = x / div;
+        int lastDigit = x % 10;
+
+        if (firstDigit != lastDigit) return 0;
+        x = (x % div) / 10;
+        div /= 100;
+    }
+
+    return 1;
 }
 
 /* ---------- test harness ---------- */
