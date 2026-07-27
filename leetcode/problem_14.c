@@ -9,7 +9,8 @@
 
 /*
  * Key notes:
- * - TODO
+ * - Don't forget you can include other conditions, not only the common i < len,
+ * it comes in quite handy for this problem
  */
 
 /*
