@@ -224,7 +224,7 @@ int main(void) {
     int expd[] = {0, 1};
     run_test((TestCase){"single digit carry", l1d, 1, l2d, 1, expd, 2});
 
-    // benchmark();
+    benchmark();
 
     return 0;
 }

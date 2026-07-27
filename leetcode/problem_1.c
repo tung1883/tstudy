@@ -11,7 +11,7 @@
  * https://leetcode.com/problems/two-sum/
  *
  * Input:
- *   nums     - array of integers, 2 <= nums.length <= 10^4, -10^9 <= nums[i] <= 10^9
+ *   nums     - array of integers, 2 <= nums.ength <= 10^4, -10^9 <= nums[i] <= 10^9
  *   numsSize - length of nums
  *   target   - integer, -10^9 <= target <= 10^9
  *   Exactly one valid answer is guaranteed to exist; may not use the same element twice.

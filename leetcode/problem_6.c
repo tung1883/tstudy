@@ -224,7 +224,7 @@ int main(void) {
     run_test((TestCase){"punctuation", "A,B.C", 2, "ABC,."});
     run_test((TestCase){"full alphabet, numRows = 5", "ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5, "AIQYBHJPRXZCGKOSWDFLNTVEMU"});
 
-    // benchmark();
+    benchmark();
 
     return 0;
 }

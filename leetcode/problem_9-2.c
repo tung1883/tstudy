@@ -124,7 +124,7 @@ int main(void) {
     run_test((TestCase){"trailing zero, non-palindrome", 10, 0});
     run_test((TestCase){"even length palindrome", 1221, 1});
 
-    // benchmark();
+    benchmark();
 
     return 0;
 }
