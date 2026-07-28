@@ -10,6 +10,9 @@
  * Key notes:
  * - Don't try to create a marvelous algorithm for overflow(x), dumbass!
  * - Just check for overflow when you do the addition that can lead to it
+ * - So the trick here is to before adding res = res * 10 + digit,
+ * check if res > INT_MAX / 10 || (res == INT_MAX && digit > 7).
+ * Same thing goes for negative one
  */
 
 /*
