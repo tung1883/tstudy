@@ -139,7 +139,7 @@ int main(void) {
     run_test((TestCase){"all identical", t5, 3, "abc"});
     run_test((TestCase){"single char", t6, 1, "a"});
 
-    // benchmark();
+    benchmark();
 
     return 0;
 }
