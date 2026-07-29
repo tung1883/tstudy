@@ -7,28 +7,11 @@
  * From the talk: traversing a 2D array in row-major order (the way it's
  * actually laid out in memory) is drastically faster than column-major,
  * because CPUs are good at scanning contiguous memory and bad at jumping.
- *
- * Uses a FLAT std::vector<int> with manual a[i*n+j] indexing, not
- * vector<vector<int>> -- the latter is only contiguous within a row,
- * since each inner vector is its own separate heap allocation, which
- * would confound this with an unrelated "extra pointer indirection"
- * cost. A flat array is the standard, clean way to demonstrate this.
- *
+ 
  * Sweeps four sizes chosen to sit inside L1D, L2, L3, and beyond L3
  * into main memory (sizes below are tuned for this machine: AMD Zen3,
  * L1D 32KB/core, L2 512KB/core, L3 16MB shared -- recompute for yours
  * if you're on different hardware).
- *
- * CAVEAT, confirmed via -fopt-info-vec: even the L1-sized case (both
- * traversals hit cache regardless of order) shows a real ~4-5x gap,
- * NOT the ~1x you'd expect from cache effects alone. That's a
- * different, compounding effect: row-major's contiguous access lets
- * GCC auto-vectorize the inner loop (32-byte AVX loads), while
- * column-major's strided access can't ("not suitable for strided
- * load") and stays scalar. So what you're seeing across this sweep is
- * two effects layered together -- a roughly constant vectorization
- * advantage present at every size, PLUS a growing cache-miss penalty
- * that dominates once the array outgrows L3 into DRAM.
  */
 
 static long long traverse_row_major(const std::vector<int>& a, int n) {
@@ -75,9 +58,12 @@ int main() {
     }
 
     printf("Expect a real gap even at L1 size (vectorization: row-major\n");
-    printf("auto-vectorizes, column-major can't), which then grows much\n");
-    printf("larger once the array outgrows L3 into DRAM (cache misses on\n");
-    printf("top of the vectorization gap).\n");
+    printf("auto-vectorizes, column-major can't). On top of that, expect\n");
+    printf("cache-miss penalties to compound at EVERY level boundary the\n");
+    printf("array crosses (L1->L2, L2->L3, L3->DRAM), not just the last\n");
+    printf("one -- though in practice the ordering between adjacent\n");
+    printf("tiers can be noisy; the L1-vs-DRAM extremes are the reliable\n");
+    printf("part of this result.\n");
 
     return 0;
 }
