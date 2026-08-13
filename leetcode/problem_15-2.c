@@ -10,7 +10,9 @@
 
 /*
  * Key notes:
- * - TODO
+ * - Hashtable solution leads to too much overhead because of all the heap allocaitons,
+ * so I re-wrote using 2 pointers
+ * - Another example of how big-O can lie to us
  */
 
 /*

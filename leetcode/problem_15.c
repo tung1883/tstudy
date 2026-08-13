@@ -125,10 +125,10 @@ int compareInteger(const void *a, const void *b) {
 int** threeSum(int* nums, int numsSize, int* returnSize, int** returnColumnSizes) {
     qsort(nums, numsSize, sizeof(int), compareInteger);
 
-    int capacity = 16, length = 0;
+    int capacity = 4096, length = 0;
     int** res = malloc(capacity * sizeof(int*));
 
-    HashTable htable = hashTableCreate(4096);
+    HashTable htable = hashTableCreate(256);
     int* touched = malloc(numsSize * sizeof(int));
 
     for (int i = 0; i < numsSize - 2; i++) {
