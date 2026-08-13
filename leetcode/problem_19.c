@@ -51,7 +51,9 @@ struct ListNode* removeNthFromEnd(struct ListNode* head, int n) {
     struct ListNode* temp = counter->next;
     counter->next = counter->next->next;
     free(temp);
-    return dummy->next;
+    temp = dummy->next;
+    free(dummy);
+    return temp;
 }
 
 /* ---------- test harness ---------- */
