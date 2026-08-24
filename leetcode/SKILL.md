@@ -23,10 +23,11 @@ Triggered when the user asks to scaffold/start a new problem (e.g. "write to lee
 2. Read one existing `problem_N.c` (pick a recent one) as the structural template — the shape is fixed across the whole folder:
    - includes (`stdio.h`, `stdlib.h`, `string.h` if strings involved, `stdbool.h`, `time.h`, the `_WIN32` block for `windows.h`/`psapi.h`)
    - a `/* Key notes: - TODO */` block above the solution
-   - a `/* Problem N: <title> \n <leetcode URL> \n\n Input: ... \n\n Output: ... */` comment describing constraints and return semantics
+   - a `/* Problem N: <title> \n <leetcode URL> \n\n Input: ... \n\n Output: ... \n\n Examples: ... */` comment describing constraints, return semantics, and the problem statement's actual example inputs/outputs
    - the solution function itself, stubbed with a `// TODO` body and a placeholder return — never pre-write the algorithm, that's the user's part
    - the test harness: `TestCase` struct + `run_test`, using `strcpy` into a local buffer when the input is a mutable `char*`
    - the benchmark section: `current_working_set_bytes`, `high_res_ms`, `benchmark()` — copy this boilerplate verbatim, only changing the sample input and iteration comment
    - `main()` wiring up `run_test` calls for the problem's examples/edge cases, then `benchmark()`
-3. Fill in the problem statement (number, title, URL, Input/Output) from what the user gives you or from the known LeetCode problem; leave the function body as a stub.
-4. Write the new file. Compile it once (`gcc problem_N.c -o problem_N.exe`) to confirm it builds — a stub returning a placeholder will fail the tests, that's expected; just confirm no compile errors.
+3. Fill in the problem statement (number, title, URL, Input/Output, Examples) from what the user gives you or from the known LeetCode problem, including the problem page's actual example inputs/outputs in the header comment; leave the function body as a stub.
+4. In `main()`, wire up `run_test` calls using the actual examples from the LeetCode problem statement (not invented ones) — same inputs/outputs as shown on the problem page. Add a couple of obvious edge cases on top if the problem statement doesn't already cover them (e.g. smallest valid input, all-same-element input).
+5. Write the new file. Compile it once (`gcc problem_N.c -o problem_N.exe`) to confirm it builds — a stub returning a placeholder will fail the tests, that's expected; just confirm no compile errors.
