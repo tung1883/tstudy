@@ -7,7 +7,7 @@
 *.obj
 *.out
 *.a
-*.lib
+
 *.dll
 *.pdb
 *.ilk
