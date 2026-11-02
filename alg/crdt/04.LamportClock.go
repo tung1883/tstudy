@@ -54,7 +54,7 @@ func NewProcess(id string) *Process {
     }
 }
 
-// Execute an independent local event.
+// Execute an independent local event
 func (p *Process) LocalEvent(description string) {
     ts := p.Clock.Tick()
 
@@ -64,7 +64,7 @@ func (p *Process) LocalEvent(description string) {
     )
 }
 
-// Send a message.
+// Send a message
 func (p *Process) Send(to, payload string) Message {
     ts := p.Clock.Tick()
 
@@ -83,7 +83,7 @@ func (p *Process) Send(to, payload string) Message {
     return msg
 }
 
-// Receive a message.
+// Receive a message
 func (p *Process) Receive(msg Message) {
     ts := p.Clock.Receive(msg.Timestamp)
 
